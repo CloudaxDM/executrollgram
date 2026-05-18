@@ -1,0 +1,10 @@
+services:
+  telegram-script-bot:
+    build: .
+    env_file:
+      - .env
+    environment:
+      SCRIPTS_DIR: /app/scripts
+    volumes:
+      - ./scripts:/app/scripts:ro
+    restart: unless-stopped
