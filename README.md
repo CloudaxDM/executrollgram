@@ -21,6 +21,8 @@ services:
     restart: unless-stopped
 ```
 
+Si el bot responde `No autorizado`, copia el `chat_id` que devuelve y ponlo en `ALLOWED_CHAT_IDS`.
+
 ## Scripts
 
 Monta tus scripts en la carpeta local `./scripts`.
