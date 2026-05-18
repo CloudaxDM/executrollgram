@@ -12,3 +12,4 @@
 - GitHub Actions rebuilds monthly with `pull: true` so the published app image picks up updates from the Python base image.
 - Use `python:3-slim` instead of `python:latest` or a fixed minor version so monthly rebuilds follow the supported Python 3 slim image without switching to a larger default image variant.
 - Publish Docker images for both `linux/amd64` and `linux/arm64` so the same GHCR tag works on x86 servers and ARM devices.
+- `REVEAL_CHAT_ID_ON_DENY` defaults to false so unauthorized responses do not leak chat IDs after initial setup; users can temporarily enable it to discover the correct Bot API chat id.

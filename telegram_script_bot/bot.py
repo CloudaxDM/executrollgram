@@ -16,7 +16,7 @@ def run_bot(config: Config) -> None:
     async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         del context
         if not _is_allowed(config, update):
-            await _reply(update, _unauthorized_message(update))
+            await _reply(update, _unauthorized_message(config, update))
             return
         scripts = list_scripts(config)
         if not scripts:
@@ -30,7 +30,7 @@ def run_bot(config: Config) -> None:
         if message is None or not message.text:
             return
         if not _is_allowed(config, update):
-            await _reply(update, _unauthorized_message(update))
+            await _reply(update, _unauthorized_message(config, update))
             return
 
         command = message.text.split(maxsplit=1)[0].lstrip("/")
@@ -60,7 +60,10 @@ def _is_allowed(config: Config, update: Update) -> bool:
     return chat is not None and chat.id in config.allowed_chat_ids
 
 
-def _unauthorized_message(update: Update) -> str:
+def _unauthorized_message(config: Config, update: Update) -> str:
+    if not config.reveal_chat_id_on_deny:
+        return "No autorizado."
+
     chat = update.effective_chat
     if chat is None:
         return "No autorizado. No se pudo detectar el chat_id."
