@@ -6,7 +6,7 @@ Bot de Telegram para ejecutar scripts desde comandos como `/backup` usando Docke
 
 ```yaml
 services:
-  telegram-script-bot:
+  executrollgram:
     image: ghcr.io/cloudaxdm/executrollgram:latest
     environment:
       BOT_TOKEN: "tu_token_de_telegram"
