@@ -43,15 +43,15 @@
 ## Task 6: Docker Runtime
 - Status: Done (`.venv\\Scripts\\python -m compileall telegram_script_bot` passed; Docker build could not run because `docker` is not installed/available in this environment).
 - Objective: Empaquetar la app para Docker con carpeta `scripts/` mapeable como volumen.
-- Expected files touched: `Dockerfile`, `.dockerignore`, `compose.yaml`, `.env.example`, `README.md`.
-- Expected result: Se puede ejecutar el bot con `docker compose up -d` y modificar scripts sin reconstruir imagen.
+- Expected files touched: `Dockerfile`, `.dockerignore`, `compose.yaml`, `README.md`.
+- Expected result: Se puede ejecutar el bot con `docker compose` usando variables en `environment` y modificar scripts sin reconstruir imagen.
 - Acceptance criteria: AC1, AC7.
 - Validation command: `docker build -t telegram-script-bot .`.
 
 ## Task 7: GitHub Container Publishing
 - Status: Done (workflow syntax added; Docker/GitHub Actions execution must run on GitHub).
-- Objective: Publicar la imagen automáticamente desde GitHub para que otros puedan descargarla con `docker pull`.
+- Objective: Publicar la imagen automáticamente desde GitHub para que otros puedan descargarla con `docker pull` y reconstruirla mensualmente con la imagen base actualizada.
 - Expected files touched: `.github/workflows/docker-publish.yml`, `README.md`, `docs/decisions.md`.
-- Expected result: Push a `main` publica `ghcr.io/USUARIO/REPOSITORIO:latest`; tags `v*` publican versiones.
+- Expected result: Push a `main` publica `ghcr.io/USUARIO/REPOSITORIO:latest`; tags `v*` publican versiones; el schedule mensual reconstruye usando `pull: true`.
 - Acceptance criteria: AC7.
 - Validation command: GitHub Actions run `Publish Docker Image`.

@@ -1,91 +1,33 @@
 # Executrollgram
 
-Bot de Telegram para ejecutar scripts locales desde comandos como `/backup`.
+Bot de Telegram para ejecutar scripts desde comandos como `/backup` usando Docker Compose.
 
-## Docker Compose
-
-Crea el archivo `.env`:
-
-```env
-BOT_TOKEN=tu_token_de_telegram
-SCRIPTS_DIR=/app/scripts
-ALLOWED_CHAT_IDS=tu_chat_id
-SCRIPT_TIMEOUT_SECONDS=60
-MAX_OUTPUT_CHARS=3500
-```
-
-Crea la carpeta de scripts:
-
-```bash
-mkdir -p scripts
-```
-
-Ejemplo de script:
-
-```bash
-cat > scripts/backup.sh <<'EOF'
-#!/usr/bin/env bash
-echo "Backup ejecutado"
-date
-EOF
-chmod +x scripts/backup.sh
-```
-
-Arranca el contenedor:
-
-```bash
-docker compose up -d
-```
-
-Ver logs:
-
-```bash
-docker compose logs -f
-```
-
-Parar:
-
-```bash
-docker compose down
-```
-
-## Montaje De Scripts
-
-El `compose.yaml` monta la carpeta local `./scripts` dentro del contenedor:
+## compose.yaml
 
 ```yaml
-volumes:
-  - ./scripts:/app/scripts:ro
+services:
+  telegram-script-bot:
+    image: ghcr.io/cloudaxdm/executrollgram:latest
+    environment:
+      BOT_TOKEN: "tu_token_de_telegram"
+      SCRIPTS_DIR: /app/scripts
+      ALLOWED_CHAT_IDS: "tu_chat_id"
+      SCRIPT_TIMEOUT_SECONDS: "60"
+      MAX_OUTPUT_CHARS: "3500"
+    volumes:
+      - ./scripts:/app/scripts:ro
+    restart: unless-stopped
 ```
 
-Por eso solo tienes que copiar scripts a `./scripts`. No hace falta reconstruir la imagen.
+## Scripts
 
-Ejemplos:
+Monta tus scripts en la carpeta local `./scripts`.
 
 ```text
 scripts/backup.sh  ->  /backup
 scripts/restart    ->  /restart
 ```
 
-Los nombres válidos solo pueden usar letras, números, `_` y `-`. En Telegram no escribas `.sh`.
+No hay que dar de alta scripts en ningún fichero. Al copiar un script válido en `./scripts`, el bot lo detecta.
 
-## Imagen Publicada
-
-```bash
-docker pull ghcr.io/cloudaxdm/executrollgram:latest
-```
-
-Si prefieres usar la imagen publicada en vez de construir localmente, cambia `compose.yaml` para usar:
-
-```yaml
-services:
-  telegram-script-bot:
-    image: ghcr.io/cloudaxdm/executrollgram:latest
-    env_file:
-      - .env
-    environment:
-      SCRIPTS_DIR: /app/scripts
-    volumes:
-      - ./scripts:/app/scripts:ro
-    restart: unless-stopped
-```
+Nombres válidos: letras, números, `_` y `-`. En Telegram no escribas `.sh`.
