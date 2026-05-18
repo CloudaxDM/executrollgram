@@ -9,6 +9,7 @@ from pathlib import Path
 from .config import Config
 
 SCRIPT_NAME_RE = re.compile(r"^[A-Za-z0-9_-]+$")
+TELEGRAM_COMMAND_RE = re.compile(r"^[a-z0-9_]{1,32}$")
 
 
 class ScriptError(Exception):
@@ -72,8 +73,25 @@ def run_script(config: Config, name: str) -> ScriptResult:
     return ScriptResult(name=name, returncode=completed.returncode, output=_limit_output(output, config))
 
 
+def describe_script(config: Config, name: str) -> str:
+    if not is_valid_script_name(name):
+        return f"Ejecuta {name}"
+
+    try:
+        script_path = _find_script_path(config.scripts_dir, name)
+    except ScriptError:
+        return f"Ejecuta {name}"
+
+    description = _read_script_description(script_path)
+    return description or f"Ejecuta {name}"
+
+
 def is_valid_script_name(name: str) -> bool:
     return bool(SCRIPT_NAME_RE.fullmatch(name))
+
+
+def is_valid_telegram_command(name: str) -> bool:
+    return bool(TELEGRAM_COMMAND_RE.fullmatch(name))
 
 
 def _resolve_script_path(scripts_dir: Path, name: str) -> Path:
@@ -110,3 +128,18 @@ def _limit_output(output: str, config: Config) -> str:
     suffix = "\n...[output truncated]"
     limit = max(config.max_output_chars - len(suffix), 0)
     return output[:limit] + suffix
+
+
+def _read_script_description(path: Path) -> str:
+    try:
+        with path.open("r", encoding="utf-8", errors="replace") as script_file:
+            for line in script_file:
+                stripped = line.strip()
+                if not stripped or stripped.startswith("#!"):
+                    continue
+                if stripped.startswith("#"):
+                    return stripped.lstrip("#").strip()[:256]
+                return ""
+    except OSError:
+        return ""
+    return ""

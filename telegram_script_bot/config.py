@@ -15,6 +15,8 @@ class Config:
     script_timeout_seconds: int
     max_output_chars: int
     reveal_chat_id_on_deny: bool
+    command_menu_refresh_enabled: bool
+    command_menu_refresh_seconds: int
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -26,6 +28,8 @@ class Config:
         timeout = _parse_positive_int("SCRIPT_TIMEOUT_SECONDS", default=60)
         max_output_chars = _parse_positive_int("MAX_OUTPUT_CHARS", default=3500)
         reveal_chat_id_on_deny = _parse_bool("REVEAL_CHAT_ID_ON_DENY", default=False)
+        command_menu_refresh_enabled = _parse_bool("COMMAND_MENU_REFRESH_ENABLED", default=True)
+        command_menu_refresh_seconds = _parse_positive_int("COMMAND_MENU_REFRESH_SECONDS", default=300)
 
         return cls(
             bot_token=token,
@@ -34,6 +38,8 @@ class Config:
             script_timeout_seconds=timeout,
             max_output_chars=max_output_chars,
             reveal_chat_id_on_deny=reveal_chat_id_on_deny,
+            command_menu_refresh_enabled=command_menu_refresh_enabled,
+            command_menu_refresh_seconds=command_menu_refresh_seconds,
         )
 
 

@@ -19,6 +19,10 @@ services:
       ALLOWED_CHAT_IDS: "tu_chat_id"
       # Pon "true" solo la primera vez para que el bot te diga tu chat_id si no estás autorizado. Luego vuelve a "false".
       REVEAL_CHAT_ID_ON_DENY: "true"
+      # Refresca automaticamente el menu nativo de comandos de Telegram.
+      COMMAND_MENU_REFRESH_ENABLED: "true"
+      # Cada cuantos segundos se refresca el menu nativo si esta habilitado.
+      COMMAND_MENU_REFRESH_SECONDS: "300"
       # Tiempo máximo de ejecución por script, en segundos.
       SCRIPT_TIMEOUT_SECONDS: "60"
       # Máximo de caracteres devueltos a Telegram por ejecución.
@@ -42,3 +46,15 @@ scripts/restart    ->  /restart
 No hay que dar de alta scripts en ningún fichero. Al copiar un script válido en `./scripts`, el bot lo detecta.
 
 Nombres válidos: letras, números, `_` y `-`. En Telegram no escribas `.sh`.
+
+El menú nativo de Telegram se refresca automáticamente si `COMMAND_MENU_REFRESH_ENABLED` está en `"true"`. También puedes forzarlo con `/reload`.
+
+Para poner descripción a un comando, usa el primer comentario del script:
+
+```bash
+#!/usr/bin/env bash
+# Lanza backup manual
+echo "backup"
+```
+
+Nota: el menú nativo de Telegram solo acepta comandos en minúsculas, números y `_`.

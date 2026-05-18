@@ -10,6 +10,10 @@ services:
       ALLOWED_CHAT_IDS: "tu_chat_id"
       # Pon "true" solo la primera vez para que el bot te diga tu chat_id si no estás autorizado. Luego vuelve a "false".
       REVEAL_CHAT_ID_ON_DENY: "true"
+      # Refresca automaticamente el menu nativo de comandos de Telegram.
+      COMMAND_MENU_REFRESH_ENABLED: "true"
+      # Cada cuantos segundos se refresca el menu nativo si esta habilitado.
+      COMMAND_MENU_REFRESH_SECONDS: "300"
       # Tiempo máximo de ejecución por script, en segundos.
       SCRIPT_TIMEOUT_SECONDS: "60"
       # Máximo de caracteres devueltos a Telegram por ejecución.

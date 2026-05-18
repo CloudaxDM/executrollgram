@@ -55,3 +55,11 @@
 - Expected result: Push a `main` publica `ghcr.io/USUARIO/REPOSITORIO:latest`; tags `v*` publican versiones; el schedule mensual reconstruye usando `pull: true`.
 - Acceptance criteria: AC7.
 - Validation command: GitHub Actions run `Publish Docker Image`.
+
+## Task 8: Telegram Command Menu Refresh
+- Status: Done (`.venv\\Scripts\\python -m compileall telegram_script_bot` passed).
+- Objective: Registrar comandos nativos de Telegram, refrescarlos periódicamente y permitir refresco manual con `/reload`.
+- Expected files touched: `telegram_script_bot/bot.py`, `telegram_script_bot/config.py`, `telegram_script_bot/scripts.py`, `compose.yaml`, `README.md`, `docs/decisions.md`.
+- Expected result: El menú de Telegram incluye `/help`, `/reload` y scripts compatibles con Bot API; las descripciones salen del primer comentario útil del script.
+- Acceptance criteria: AC2, AC3, AC7.
+- Validation command: `.venv\\Scripts\\python -m compileall telegram_script_bot`.
