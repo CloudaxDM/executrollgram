@@ -26,6 +26,7 @@ El proyecto no tiene código Python ni entorno creado. Solo existe configuració
 - Alta de scripts por archivo: un script llamado `backup` o `backup.sh` se invoca con `/backup`.
 - No se usa `shell=True`; se ejecuta el path resuelto con `subprocess.run`.
 - Docker ejecuta la app como usuario no root y espera scripts montados en `/app/scripts`.
+- Docker usa `python:3-slim` para seguir la rama estable de Python 3 sin depender de un minor fijo ni de `latest`.
 
 ## UI/Component Design
 - `/start` y `/help` muestran scripts disponibles.

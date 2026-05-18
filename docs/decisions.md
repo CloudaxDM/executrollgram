@@ -10,3 +10,4 @@
 - Publish Docker images to GitHub Container Registry (`ghcr.io`) with GitHub Actions because it works with the built-in `GITHUB_TOKEN` and avoids external Docker Hub secrets.
 - Compose configuration keeps runtime options directly under `environment` instead of using `.env`, making single-file deployments simpler.
 - GitHub Actions rebuilds monthly with `pull: true` so the published app image picks up updates from the Python base image.
+- Use `python:3-slim` instead of `python:latest` or a fixed minor version so monthly rebuilds follow the supported Python 3 slim image without switching to a larger default image variant.
