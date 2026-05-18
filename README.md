@@ -2,6 +2,8 @@
 
 Bot de Telegram para ejecutar scripts desde comandos como `/backup` usando Docker Compose.
 
+La imagen `ghcr.io/cloudaxdm/executrollgram:latest` está publicada para `linux/amd64` y `linux/arm64`.
+
 ## compose.yaml
 
 ```yaml
