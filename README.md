@@ -47,6 +47,8 @@ No hay que dar de alta scripts en ningún fichero. Al copiar un script válido e
 
 Nombres válidos: letras, números, `_` y `-`. En Telegram no escribas `.sh`.
 
+El repositorio incluye scripts Linux de ejemplo en `scripts/` para copiar al servidor: salud, disco, memoria, CPU, red, DNS, HTTP, checksums, backups y auditorías básicas.
+
 El menú nativo de Telegram se refresca automáticamente si `COMMAND_MENU_REFRESH_ENABLED` está en `"true"`. También puedes forzarlo con `/reload`.
 
 Para poner descripción a un comando, usa el primer comentario del script:
